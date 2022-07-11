@@ -5,7 +5,7 @@ const getWeather = (location, callback) => {
     request(url, (error, response, body) =>{
     if (!error && response != undefined && response.statusCode == 200){
         const dataJSON = JSON.parse(body)
-        if(dataJSON.success){
+        if(dataJSON.success == undefined || dataJSON.success){
             const current = dataJSON.current
             const return_data = {
                 "location" : dataJSON.location.name + ", " + dataJSON.location.country,

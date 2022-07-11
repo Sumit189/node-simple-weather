@@ -8,7 +8,7 @@ function get_weather(){
         html: 'Fetching',
         allowOutsideClick: false,
         showConfirmButton: false,
-        onBeforeOpen: () => {
+        didOpen: () => {
             Swal.showLoading()
         },
     });
