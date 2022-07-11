@@ -5,7 +5,7 @@ function get_weather(){
     document.getElementById("data").classList.add("d-none")
     Swal.fire({
         title: 'Please Wait !',
-        html: 'Fetching',// add html attribute if you want or remove
+        html: 'Fetching',
         allowOutsideClick: false,
         showConfirmButton: false,
         onBeforeOpen: () => {
@@ -14,7 +14,7 @@ function get_weather(){
     });
     var location = document.getElementById("location").value
 
-    fetch("http://localhost:3000/weather?address="+location).then((response) =>{
+    fetch("/weather?address="+location).then((response) =>{
         response.json().then((data)=>{
             swal.close()
             if(data.error){
@@ -29,13 +29,14 @@ function get_weather(){
                 document.getElementById("wind_speed").innerHTML = wind_speed + "km/h"
                 document.getElementById("cloud_cover").innerHTML = cloud_cover + "%"
                 document.getElementById("description").innerHTML = weather_description
-                if (weather_description == "Mist"){
-                    weather_description = "Haze"
+                var w_d  = weather_description
+                if (w_d == "Mist"){
+                    w_d = "Haze"
                 }
-                if(is_day == "yes" || weather_description == "Haze"){
-                    document.getElementById("dynamic_icon").innerHTML = '<i class="wi wi-day-'+weather_description.toLowerCase().replace(' ', '-')+' text-black" style="font-size:96px !important;"></i>'
+                if(is_day == "yes" || w_d == "Haze"){
+                    document.getElementById("dynamic_icon").innerHTML = '<i class="wi wi-day-'+w_d.toLowerCase().replace(' ', '-')+' text-black" style="font-size:96px !important;"></i>'
                 } else{
-                    document.getElementById("dynamic_icon").innerHTML = '<i class="wi wi-night-'+weather_description.toLowerCase().replace(' ', '-')+' text-black" style="font-size:96px !important;"></i>'
+                    document.getElementById("dynamic_icon").innerHTML = '<i class="wi wi-night-'+w_d.toLowerCase().replace(' ', '-')+' text-black" style="font-size:96px !important;"></i>'
                 }
 
                 document.getElementById("data").classList.remove("d-none")
