@@ -18,7 +18,12 @@ function get_weather(){
         response.json().then((data)=>{
             swal.close()
             if(data.error){
-                console.log(data.error)
+                Swal.fire({
+                    title: 'Error',
+                    text: data.error,
+                    icon: 'error',
+                    confirmButtonText: 'Close'
+                })
             }
             else{
                 const {location, current_temperature, feels_like, humidity, wind_speed, cloud_cover, weather_description, is_day} = data.forecast
